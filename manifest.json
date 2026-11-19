@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Page Capture to PDF",
+  "version": "1.1.2",
+  "description": "Capture a selected area of each page, turn pages automatically, and combine everything into one PDF. 100% local.",
+  "minimum_chrome_version": "110",
+  "permissions": [
+    "scripting",
+    "storage",
+    "unlimitedStorage",
+    "debugger"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Page Capture to PDF",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

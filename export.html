@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="ui.css">
+<style>
+  body{max-width:1000px;margin:0 auto;padding:28px 20px}
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:-.01em}
+  .bar-row{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin:18px 0}
+  .bar-row label{flex:1;min-width:220px}
+  #progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0 4px}
+  #progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .1s}
+  section.ocr{margin:0 0 6px}
+  section.ocr .lang{margin-top:10px;max-width:260px}
+  code{background:var(--bg);padding:0 4px;border-radius:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:20px}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  figure img{display:block;width:100%;height:170px;object-fit:contain;background:#fff}
+  figcaption{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;color:var(--muted);font-size:12px}
+  figcaption button{padding:2px 8px;font-size:12px}
+</style>
+<title>Download PDF</title>
+</head>
+<body>
+  <h1>Your pages</h1>
+  <p class="hint" id="summary">Loading…</p>
+  <div class="bar-row">
+    <label>PDF file name<input id="filename" type="text" spellcheck="false"></label>
+    <button id="download" class="primary">Download PDF</button>
+    <button id="cancel" class="danger" hidden>Cancel</button>
+  </div>
+  <section class="ocr">
+    <label class="check"><input id="ocr" type="checkbox">
+      <span>Make text selectable and searchable (OCR). Runs locally and may take a few seconds per page.
+      Needed to highlight and annotate in Zotero.</span></label>
+    <label class="lang">OCR language
+      <input id="ocrLang" type="text" value="eng" spellcheck="false">
+    </label>
+    <p class="hint">English is included. Combine languages with “+”, e.g. <code>eng+deu</code>; extra languages must be added to <code>vendor/lang</code> (see README).</p>
+  </section>
+  <div id="progress" hidden><i></i></div>
+  <p id="status" class="hint"></p>
+  <div class="grid" id="grid"></div>
+  <script src="vendor/tesseract.min.js"></script>
+  <script type="module" src="export.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="ui.css">
+<style>body{width:360px;min-height:780px}</style>
+<title>Page Capture to PDF</title>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <div class="count"><span id="count">0</span> <span class="unit">pages captured</span></div>
+      <div id="message" class="message">Ready.</div>
+    </div>
+    <img id="thumb" alt="Last captured page" hidden>
+  </header>
+  <div class="bar" id="bar"><i></i></div>
+  <div class="row status-row"><span id="status" class="pill idle">Ready</span></div>
+
+  <section>
+    <h2>Capture area</h2>
+    <div class="row">
+      <button id="selectArea" class="secondary">Select area on page</button>
+      <button id="showArea" class="ghost">Show</button>
+      <button id="autoArea" class="ghost" title="Forget the selected area and detect the page automatically">Auto</button>
+    </div>
+    <div class="grid4">
+      <label>X<input id="x" type="number" min="0" disabled></label>
+      <label>Y<input id="y" type="number" min="0" disabled></label>
+      <label>Width<input id="w" type="number" min="20" disabled></label>
+      <label>Height<input id="h" type="number" min="20" disabled></label>
+    </div>
+    <label class="check">
+      <input id="autoDetect" type="checkbox">
+      <span>Crop to the page edges automatically (select a generous area around the page)</span>
+    </label>
+    <p id="areaInfo" class="hint">No area selected yet.</p>
+  </section>
+
+  <section>
+    <h2>Turn pages with</h2>
+    <select id="nav">
+      <option value="ArrowRight">Right Arrow key</option>
+      <option value="PageDown">Page Down key</option>
+      <option value="button">Next-page button</option>
+    </select>
+    <div id="selectorRow" class="stack" hidden>
+      <div class="row">
+        <input id="selector" type="text" placeholder="CSS selector, e.g. button.next" spellcheck="false">
+        <button id="pickBtn" class="secondary">Pick</button>
+      </div>
+    </div>
+    <label id="trustedRow" class="check" hidden>
+      <input id="trusted" type="checkbox">
+      <span>Use trusted key events (use if the page ignores the keys; shows the browser’s debugging bar)</span>
+    </label>
+  </section>
+
+  <details>
+    <summary>Timing and limits</summary>
+    <div class="grid2">
+      <label>Wait after turning (ms)<input id="delay" type="number" min="0" step="100"></label>
+      <label>Wait for change (ms)<input id="maxWait" type="number" min="1000" step="500"></label>
+      <label>Retries if page unchanged<input id="retries" type="number" min="0" max="10"></label>
+      <label>Max pages<input id="maxPages" type="number" min="1"></label>
+      <label>Sensitivity (% of area)<input id="sensitivity" type="number" min="0.01" step="0.01"></label>
+      <label>Capture resolution
+        <select id="captureScale">
+          <option value="1">1x (screen density)</option>
+          <option value="2">2x (sharp)</option>
+          <option value="3">3x (very sharp, default)</option>
+          <option value="4">4x (maximum, large files)</option>
+        </select>
+      </label>
+    </div>
+    <label class="full">PDF file name<input id="filename" type="text" placeholder="capture-2026-11-19"></label>
+  </details>
+
+  <footer class="actions">
+    <button id="start" class="primary">Start capture</button>
+    <button id="pause" class="secondary" hidden>Pause</button>
+    <button id="resume" class="primary" hidden>Resume</button>
+    <button id="stop" class="danger" hidden>Stop</button>
+  </footer>
+  <div class="row split">
+    <button id="makePdf" class="secondary">Review &amp; download PDF</button>
+    <button id="reset" class="ghost">Discard pages</button>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
